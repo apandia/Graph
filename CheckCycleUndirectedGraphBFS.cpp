@@ -32,9 +32,9 @@ Output: Cycle Present
 class Graph {
 public:
 	Graph(int V)
-    : numVertices(V)
 	{
-        adjList = new vector<int>[numVertices];
+	    numVertices = V;
+            adjList = new vector<int>[numVertices];
 	}
 
     bool checkCycle(int node, vector<bool>& visited)
@@ -78,14 +78,15 @@ public:
         {
             if(!visited[i])
             {
-                checkCycle(i, visited);
+                if(checkCycle(i, visited))
+		    return true;
             }
         }
     }
 
     void addEdge(int u, int v, bool directedGraph = false)
     {
-		adjList[u].push_back(v);
+	adjList[u].push_back(v);
 
         if(directedGraph == false)
             adjList[v].push_back(u);

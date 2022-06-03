@@ -4,7 +4,7 @@
 
 using namespace std;
 
-//Breadth First Traversal of Graph
+//Check Cycle in Undirected Graph using BFS
 /*
 Input Graph:
 
@@ -22,7 +22,7 @@ Vertex 5 -> 3 7
 Vertex 6 -> 4
 Vertex 7 -> 2 5
 
-Output: Cycle Present
+Output: Graph has Cycle
 
 */
 
@@ -37,7 +37,40 @@ public:
         adjList = new vector<int>[numVertices];
 	}
 
-    bool checkCycle()
+    bool checkCycle(int node, vector<bool>& visited)
+    {
+        queue<pair<int, int>> q; //current and parent/previous
+        q.push({node, -1});
+
+        visited[node] = true;
+
+        while(!q.empty())
+        {
+            auto it = q.front();
+            q.pop();
+
+            int curr = it.first;
+            int prev = it.second;
+
+            for(auto neighbour : adjList[curr])
+            {
+                if(!visited[neighbour])
+                {
+                    q.push({neighbour, curr});
+                    visited[neighbour] = true;
+                }
+                else
+                {
+                    if(neighbour != prev)
+                        return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    bool isCycle()
     {
         vector<bool> visited(numVertices, false);
 
@@ -45,37 +78,9 @@ public:
         {
             if(!visited[i])
             {
-                queue<pair<int, int>> q; //current and parent/previous
-                q.push({i, -1});
-
-                visited[i] = true;
-
-                while(!q.empty())
-                {
-                    auto it = q.front();
-                    q.pop();
-
-                    int node = it.first;
-                    int prev = it.second;
-
-                    for(auto neighbour : adjList[node])
-                    {
-                        if(!visited[neighbour])
-                        {
-                            q.push({neighbour, node});
-                            visited[neighbour] = true;
-                        }
-                        else
-                        {
-                            if(neighbour != prev)
-                                return true;
-                        }
-                    }
-                }
+                checkCycle(i, visited);
             }
         }
-
-        return false;
     }
 
     void addEdge(int u, int v, bool directedGraph = false)
@@ -117,7 +122,7 @@ int main()
 
     g.addEdge(4, 6);
 
-    if(g.checkCycle())
+    if(g.isCycle())
         cout<<"Graph has Cycle"<<endl;
     else
         cout<<"Graph does not have cycle"<<endl;

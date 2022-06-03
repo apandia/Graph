@@ -22,7 +22,7 @@ Vertex 5 -> 3 7
 Vertex 6 -> 4
 Vertex 7 -> 2 5
 
-Output: Graph has Cycle
+Output: Cycle Present
 
 */
 
@@ -32,7 +32,7 @@ Output: Graph has Cycle
 class Graph {
 public:
 	Graph(int V)
-		: numVertices(V)
+    : numVertices(V)
 	{
         adjList = new vector<int>[numVertices];
 	}
@@ -84,12 +84,12 @@ public:
     }
 
     void addEdge(int u, int v, bool directedGraph = false)
-	{
+    {
 		adjList[u].push_back(v);
 
         if(directedGraph == false)
             adjList[v].push_back(u);
-	}
+    }
 
     void printAdjacencyList()
     {
@@ -106,7 +106,7 @@ public:
     }
 
 private:
-	int numVertices;
+    int numVertices;
     vector<int> *adjList;
 };
 
@@ -127,5 +127,5 @@ int main()
     else
         cout<<"Graph does not have cycle"<<endl;
 
-	return 0;
+    return 0;
 }

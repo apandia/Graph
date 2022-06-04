@@ -26,17 +26,17 @@ Output: 3
 //TC: O(N)    [O(5N) worst case a single node is traversed 5 times, 1 processing and 4 from side nodes.]
 //SC: O(1)    [if recursive stack space is not considered.]
 //SC: O(MxN)  [if recursive space is considered as there will be MxN recursive call.]
-void markIslands(vector<vector<char>>&grid, int i, int j, int numRows, int numColumns)
+void markIslands(vector<vector<char>>&grid, int i, int j)
 {
-    if(i <0 || i >= numRows || j < 0 || j >= numColumns || grid[i][j] != '1')
+    if(i <0 || i >= grid.size() || j < 0 || j >= grid[i].size() || grid[i][j] != '1')
         return;
 
     grid[i][j] = '2';
 
-    markIslands(grid, i-1, j, numRows, numColumns);
-    markIslands(grid, i+1, j, numRows, numColumns);
-    markIslands(grid, i, j-1, numRows, numColumns);
-    markIslands(grid, i, j+1, numRows, numColumns);
+    markIslands(grid, i-1, j);
+    markIslands(grid, i+1, j);
+    markIslands(grid, i, j-1);
+    markIslands(grid, i, j+1);
 }
 
 int numIslands(vector<vector<char>>& grid)
@@ -55,7 +55,7 @@ int numIslands(vector<vector<char>>& grid)
         {
             if(grid[i][j] == '1')
             {
-                markIslands(grid, i, j, numRows, numColumns);
+                markIslands(grid, i, j);
                 numIslands++;
             }
         }

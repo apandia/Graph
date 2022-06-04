@@ -3,7 +3,7 @@
 
 using namespace std;
 
-//Find the number of islands(1s)
+//Find the number of islands(1s) - DFS Approach
 /*
 Input1:
 grid = [

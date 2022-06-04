@@ -34,7 +34,11 @@ Input Graph2:
 
 Output: Graph g2is bipartite
 */
-
+//TC: O(V+E)
+//SC: O(V+E) + O(V) + O(V)
+//      O(V+E)  - Adjecency list
+//      O(V)    - color array
+//      O(V)    - queue to hold nodes
 class Graph{
 public:
     Graph(int V)

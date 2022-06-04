@@ -34,7 +34,8 @@ Input Graph2:
 
 Output: Graph g2is bipartite
 */
-
+//TC: O(V+E)
+//SC: O(V+E) + O(V) + O(V)  (for color vector and recursive stack space)
 class Graph{
 public:
     Graph(int V)

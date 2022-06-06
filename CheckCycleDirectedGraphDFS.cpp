@@ -48,22 +48,6 @@ public:
         adjList = new vector<int>[numVertices];
     }
 
-    bool checkCycle()
-    {
-        vector<bool> visited(numVertices, false);
-        vector<bool> dfsVisited(numVertices, false);
-
-        for (int i = 1; i < numVertices; i++)
-        {
-            if(!visited[i])
-            {
-                if(checkCycleDFS(i, visited, dfsVisited))
-                    return true;
-            }
-        }
-        return false;
-    }
-
     void addEdge(int u, int v, bool directedGraph = false)
     {
         adjList[u].push_back(v);
@@ -74,7 +58,7 @@ public:
 
     void printAdjacencyList()
     {
-        for (int i = 0; i < numVertices; i++)
+        for (int i = 1; i < numVertices; i++)
         {
             cout<<"Vertex " <<i<<" -> ";
             for(int j = 0; j < adjList[i].size(); j++)
@@ -86,26 +70,65 @@ public:
         cout<<endl;
     }
 
-private:
-    bool checkCycleDFS(int node, vector<bool>& visited, vector<bool>& dfsVisited)
+    bool checkCycle()
     {
-        visited[node] = true;
-        dfsVisited[node] = true;
+        vector<int> visited(numVertices, 0);
+        vector<int> dfsVisited(numVertices, 0);
+
+        for (int i = 1; i < numVertices; i++)
+        {
+            if(visited[i] == 0)
+            {
+                /*if(checkCycleDFS(i, visited, dfsVisited))
+                    return true;*/
+                if(checkCycleDFS(i, visited))
+                    return true;
+            }
+        }
+        return false;
+    }
+
+private:
+    bool checkCycleDFS(int node, vector<int>& visited, vector<int>& dfsVisited)
+    {
+        visited[node] = 1;
+        dfsVisited[node] = 1;
 
         for(int neighbour : adjList[node])
         {
-            if(!visited[neighbour])
+            if(visited[neighbour] == 0)
             {
                 if(checkCycleDFS(neighbour, visited, dfsVisited))
                     return true;
             }
             else
             {
-                if(dfsVisited[neighbour])
+                if(dfsVisited[neighbour] == 1)
                     return true;
             }
         }
-        dfsVisited[node] = false;
+        dfsVisited[node] = 1;
+        return false;
+    }
+
+    //Extra space for dfsVisited not used in below function
+    bool checkCycleDFS(int node, vector<int>& visited)
+    {
+        if(visited[node] == 2)
+            return true;
+
+        visited[node] = 2;
+
+        for(int neighbour : adjList[node])
+        {
+            if(visited[neighbour] != 1)
+            {
+                if(checkCycleDFS(neighbour, visited))
+                    return true;
+            }
+        }
+
+        visited[node] = 1;
         return false;
     }
 
@@ -138,8 +161,8 @@ int main()
 
     cout<<endl;
 
-    Graph g2(2);
-    g2.addEdge(1, 0, true);
+    Graph g2(3);
+    g2.addEdge(1, 2, true);
 
     g2.printAdjacencyList();
 
@@ -150,9 +173,9 @@ int main()
 
     cout<<endl;
 
-    Graph g3(2);
-    g3.addEdge(1, 0, true);
-    g3.addEdge(0, 1, true);
+    Graph g3(3);
+    g3.addEdge(1, 2, true);
+    g3.addEdge(2, 1, true);
 
     g3.printAdjacencyList();
 

@@ -83,12 +83,10 @@ public:
         }
 
         int count = 0;
-        vector<int> topo;
         while(!q.empty())
         {
             int node = q.front();
             q.pop();
-            topo.push_back(node);
             count++;
 
             for(auto neighbour : adjList[node])

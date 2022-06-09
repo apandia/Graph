@@ -82,6 +82,7 @@ public:
 		    return true;
             }
         }
+	return false;
     }
 
     void addEdge(int u, int v, bool directedGraph = false)

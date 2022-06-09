@@ -4,7 +4,7 @@
 
 using namespace std;
 
-// Depth First Search Traversal of Graph
+// Topological Sort - DFS
 /*
 Input Directed Graph:
 

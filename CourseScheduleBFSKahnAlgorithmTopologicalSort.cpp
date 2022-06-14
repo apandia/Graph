@@ -4,7 +4,7 @@
 
 using namespace std;
 
-// Course Schedule - DFS(Recursive) Approach (TD)
+// Course Schedule - BFS using Kahn Algorithm
 
 /*
 Input: numCourses = 2, prerequisites = [[1,0]]

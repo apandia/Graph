@@ -4,7 +4,8 @@
 
 using namespace std;
 
-// Shortest path from source node in Undirected graph - BFS
+// Shortest path from source node in Undirected graph (with Unit weight) - BFS
+// For undirected weighted graph refer Dijkatra Algorithm: https://github.com/apandia/Graph/blob/main/ShortestPathUndirectedGraphDijkatraAlgorithm.cpp
 /*
 Input Directed Graph:
 
